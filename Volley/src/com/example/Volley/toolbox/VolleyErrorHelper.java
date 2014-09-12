@@ -15,10 +15,10 @@ public class VolleyErrorHelper {
 
     private static final String CONNECTION_REFUSED_STRING = "Connection refused";
 
-    // 连接超时（windows 防火墙未关闭，或者服务器来不及处理请求时）
+    // 连接超时（windows 防火墙未关闭，或者服务器来不及处理请求时，IP地址不正确）
     public static final int CONNECTION_TIMEOUT = 2;
 
-    // 比如 404错误，500错误，才疏学浅只知道这两个，已测试
+    // 比如 404错误，500错误，只知道这两个
     public static final int SERVER_ERROR = 3;
 
     public static int getErrorType(VolleyError volleyError) {
@@ -47,7 +47,7 @@ public class VolleyErrorHelper {
     // 当 errorType 为 ServerError 时，进一步判断 statusCode
     public static int getServerErrorStatusCode(ServerError serverError) {
 
-        return  serverError.networkResponse.statusCode;
+        return serverError.networkResponse.statusCode;
     }
 
     private static boolean isNetworkProblem(VolleyError volleyError) {
@@ -63,6 +63,28 @@ public class VolleyErrorHelper {
     private static boolean isServerProblem(VolleyError volleyError) {
 
         return (volleyError instanceof ServerError);
+    }
+
+    public static String getErrorMessage(VolleyError volleyError) {
+
+        int errorType = getErrorType(volleyError);
+        switch (errorType) {
+            case NETWORK_UNREACHABLE:
+                return "手机未连接到网络";
+            case CONNECTION_REFUSED:
+                return "连接被拒，请联系开发人员。";
+            case CONNECTION_TIMEOUT:
+                return "连接超时。";   // 事实上，Volley 自带重试机制
+            case SERVER_ERROR:
+                int statusCode = getServerErrorStatusCode((ServerError) volleyError);
+                if (statusCode == 404) {
+                    return "404错误";
+                } else if (statusCode == 500) {
+                    return "500错误";
+                }
+            default:
+                return "未知错误";
+        }
     }
 
 }

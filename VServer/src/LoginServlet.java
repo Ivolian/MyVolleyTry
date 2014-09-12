@@ -22,28 +22,38 @@ public class LoginServlet extends HttpServlet {
 
     public void process(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
-        // 获取参数
-//        String username = httpServletRequest.getParameter("username");
+        int number = Integer.valueOf(httpServletRequest.getParameter("number"));
 
-        PrintWriter printWriter = httpServletResponse.getWriter();
-        printWriter.println(generateJson());
-    }
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
 
-    private String generateJson() {
-
-        List<DownloadInfo> downloadInfoList = new ArrayList<DownloadInfo>();
-        for (int i = 1; i <= 10; i++) {
-            downloadInfoList.add(
-                    new DownloadInfo(
-                            "name" + i,
-                            "/jpg/i" + i + ".jpg",
-                            "description" + i,
-                            i
-                    )
-            );
         }
 
-        return GsonUtil.toJson(downloadInfoList);
+        PrintWriter printWriter = httpServletResponse.getWriter();
+        printWriter.println(generateJson(number));
     }
+
+    private static String generateJson(int number) {
+
+        List<PokemonInfo> pokemonInfoList = new ArrayList<PokemonInfo>();
+        while (number > 0) {
+            for (int i = 1; i <= 10; i++) {
+                pokemonInfoList.add(
+                        new PokemonInfo(
+                                "name" + i,
+                                "/jpg/i" + i + ".jpg",
+                                "description" + i,
+                                i
+                        )
+                );
+            }
+            number--;
+        }
+
+        return GsonUtil.toJson(pokemonInfoList);
+    }
+
+
 
 }  

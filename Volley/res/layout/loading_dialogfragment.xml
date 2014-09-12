@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/loading_dialogfragment_bg"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:padding="20dp">
+
+    <ImageView android:id="@+id/ivSpinner"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/spinner"/>
+
+    <TextView android:id="@+id/tvMessage"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="登录中..."
+              android:layout_marginTop="15dp"
+              android:textColor="@color/white"/>
+
+</LinearLayout>

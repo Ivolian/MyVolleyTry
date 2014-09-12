@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center">
+
+    <FrameLayout android:layout_width="80dp"
+                 android:layout_height="40dp">
+        <ProgressBar android:id="@+id/progress"
+                     android:layout_width="match_parent" android:layout_height="match_parent"
+                     android:max="100" android:progress="100"
+                     android:progressDrawable="@drawable/download_progress"
+                     style="?android:attr/progressBarStyleHorizontal"/>
+        <Button android:id="@+id/button"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:text="下载"/>
+    </FrameLayout>
+
+    <FrameLayout android:layout_width="80dp"
+                 android:layout_marginTop="30dp"
+                 android:layout_height="40dp">
+        <ProgressBar android:id="@+id/progress2"
+                     android:layout_width="match_parent" android:layout_height="match_parent"
+                     android:max="100" android:progress="100"
+                     android:progressDrawable="@drawable/download_progress2"
+                     style="?android:attr/progressBarStyleHorizontal"/>
+        <Button android:id="@+id/button2"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:text="下载"/>
+    </FrameLayout>
+
+</LinearLayout>
+

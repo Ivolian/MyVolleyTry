@@ -1,16 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <Button android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send Message"/>
+    <!--actionbar-->
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:background="@color/mainColor"
+                  android:gravity="center_vertical">
 
-    <ListView android:id="@+id/listView"
-              android:layout_width="wrap_content"
-              android:layout_height="0dp" android:layout_weight="1"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Volley 首页"
+                  android:textSize="19dp"
+                  android:textColor="@color/white"
+                  android:layout_marginLeft="14dp"/>
+
+    </LinearLayout>
+
+    <!--content-->
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <com.example.Volley.os.PagerSlidingTabStrip
+                android:id="@+id/pagerSlidingTabStrip"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="1"/>
+
+    </LinearLayout>
 
 </LinearLayout>
 
