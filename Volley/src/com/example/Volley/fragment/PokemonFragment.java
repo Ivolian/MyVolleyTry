@@ -11,7 +11,6 @@ import com.android.volley.VolleyError;
 import com.example.Volley.MyVolley;
 import com.example.Volley.R;
 import com.example.Volley.adapter.PokemonListAdapter;
-import com.example.Volley.dialogfragment.LoadingDialogFragment;
 import com.example.Volley.model.PokemonInfo;
 import com.example.Volley.os.pulltorefresh.PullToRefreshBase;
 import com.example.Volley.os.pulltorefresh.PullToRefreshListView;
@@ -27,8 +26,6 @@ import java.util.Map;
 
 public class PokemonFragment extends Fragment {
 
-    private LoadingDialogFragment loadingDialogFragment;
-
     private PullToRefreshListView plvPokemon;
 
     private PokemonListAdapter pokemonListAdapter;
@@ -43,9 +40,7 @@ public class PokemonFragment extends Fragment {
         // 当 fragment 第一次可见时加载数据
         if (isVisibleToUser) {
             if (!hasFirstLoaded) {
-                showLoadingDialog();
                 firstLoad();
-                hasFirstLoaded = true;
             }
         }
     }
@@ -73,6 +68,7 @@ public class PokemonFragment extends Fragment {
                                             }
                                         }
         );
+        plvPokemon.setEmptyView(inflater.inflate(R.layout.empty_view,container,false));
 
         return rootView;
     }
@@ -94,7 +90,7 @@ public class PokemonFragment extends Fragment {
                         );
                         pokemonListAdapter.setDownloadInfoList(pokemonInfoList);
                         pokemonListAdapter.notifyDataSetChanged();
-                        hideLoadingDialog();
+                        hasFirstLoaded = true;
                     }
                 },
                 new Response.ErrorListener() {
@@ -103,13 +99,18 @@ public class PokemonFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
 
                         copeVolleyError(volleyError);
-                        hideLoadingDialog();
+                        hasFirstLoaded = true;
                     }
                 }
         );
     }
 
     private void refresh() {
+
+        if (!hasFirstLoaded){
+            plvPokemon.onRefreshComplete();
+            return;
+        }
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("number", "1");
@@ -146,6 +147,11 @@ public class PokemonFragment extends Fragment {
 
     private void loadMore() {
 
+        if (!hasFirstLoaded){
+            plvPokemon.onRefreshComplete();
+            return;
+        }
+
         Map<String, String> params = new HashMap<String, String>();
         params.put("number", "1");
 
@@ -180,20 +186,6 @@ public class PokemonFragment extends Fragment {
 
         String errorMessage = VolleyErrorHelper.getErrorMessage(volleyError);
         CroutonUtil.showErrorMessage(getActivity(), errorMessage);
-    }
-
-    private void showLoadingDialog() {
-
-        if (loadingDialogFragment == null) {
-            loadingDialogFragment = new LoadingDialogFragment();
-        }
-
-        loadingDialogFragment.show(getActivity().getSupportFragmentManager(), LoadingDialogFragment.class.getName());
-    }
-
-    private void hideLoadingDialog() {
-
-        loadingDialogFragment.dismiss();
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.Volley;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.util.Log;
 import com.android.volley.*;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
@@ -17,8 +18,7 @@ public class MyVolley {
 
     private static ImageLoader mImageLoader;
 
-    // 每日改 IP
-    private static final String BASE_URL = "http://192.168.7.115:8080";
+    private static final String BASE_URL = "http://do.jhost.cn/ivolianer15";
 
     static void init(Context context) {
 
